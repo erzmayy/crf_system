@@ -1,0 +1,876 @@
+/* =====================================================================
+   CRF Prototype - Custom Styles
+   Palet: putih, biru korporat, abu-abu (sesuai brief butir 29)
+   ===================================================================== */
+
+:root {
+  --crf-blue-900: #1f2a3d;
+  --crf-blue-700: #2563eb;
+  --crf-blue-100: #EAF4FB;   /* biru sangat muda */
+  --crf-gray-900: #333333;   /* teks utama */
+  --crf-gray-600: #666666;   /* teks sekunder */
+  --crf-gray-300: #D9D9D9;   /* border */
+  --crf-gray-100: #F5F5F5;   /* background */
+  --crf-white:    #FFFFFF;
+
+  --crf-amber:  #B4740E;
+  --crf-red:    #B3261E;
+  --crf-green:  #1E7A3D;
+
+  --crf-radius: 10px;
+  --crf-font: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --crf-sidebar-width: 207px;
+  --crf-sidebar-width-collapsed: 58px;
+  --crf-topbar-height: 58px;
+}
+
+* { box-sizing: border-box; }
+
+a, button, .btn, .crf-badge, .crf-stat-card, .crf-table tbody tr {
+  transition: all 0.18s ease;
+}
+
+body {
+  font-family: var(--crf-font);
+  background-color: var(--crf-gray-100);
+  color: var(--crf-gray-900);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden; /* cegah scroll horizontal tak sengaja saat sidebar off-canvas */
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Corporate application shell ---------- */
+.crf-app-shell { min-height: 100vh; display: flex; }
+.crf-sidebar {
+  width: var(--crf-sidebar-width);
+  height: 100vh;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  background: linear-gradient(180deg,  #F9FAFB 0%, #E5E7EB 80%);
+  color: #C7D2E0;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow-y: auto;
+
+  z-index: 1050;
+  transition: transform 0.25s ease;
+}
+.crf-sidebar-brand {
+  height: var(--crf-topbar-height); background: #1c8fdb; display: flex; align-items: center; gap: 0.55rem; padding: 0 1.2rem;
+  color: #1F2937; text-decoration: none; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.crf-sidebar-mark { color: #fff; font-size: 1rem; }
+.ppu-logo {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    display: block;
+}
+.ppu-brand-text {
+    color: #ffffff;
+}
+.crf-sidebar-section { padding: 1.15rem 1.05rem 0.45rem; font-size: 0.72rem; color: #718096; }
+.crf-sidebar-nav a {
+  display: flex; gap: 0.65rem; align-items: center; padding: 0.58rem 1.05rem;
+  color: #16181a; text-decoration: none; font-size: 0.79rem; border-radius: 8px;
+}
+.crf-sidebar-nav a:hover{ color: #fff; background: rgba(79, 46, 156, 0.06); }
+.crf-sidebar-nav a.active {
+  color: #240808;
+  background: rgba(59, 130, 246, 0.18);
+  border-right: none;
+  box-shadow: inset 3px 0 0 0 #3B82F6;
+}
+.crf-sidebar-footer { margin-top: auto; padding: 1rem 1.05rem; border-top: 1px solid rgba(255,255,255,0.08); }
+.crf-sidebar-footer a { color: #F87171; text-decoration: none; font-size: 0.78rem; }
+.crf-sidebar-footer a:hover { color: #FCA5A5; }
+
+.crf-content-shell {
+  min-width: 0;
+  margin-left: var(--crf-sidebar-width);
+  width: calc(100% - var(--crf-sidebar-width));
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.25s ease, width 0.25s ease;
+}
+.crf-topbar {
+  height: var(--crf-topbar-height);
+  position: sticky;
+  top: 0;
+  background: #1c8fdb;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 1.35rem;
+  z-index: 900;
+  gap: 0.75rem;
+}
+
+/* Tombol hamburger: disembunyikan di desktop, muncul di mobile (lihat media query) */
+.crf-sidebar-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.25rem;
+  padding: 0.25rem 0.4rem;
+  margin-right: auto;
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* Overlay gelap di belakang sidebar saat dibuka di mobile */
+.crf-sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  z-index: 1040;
+}
+.crf-breadcrumb { display: flex; align-items: center; gap: 0.65rem; font-size: 0.76rem; }
+.crf-breadcrumb strong { font-size: 0.9rem; }
+.crf-breadcrumb span { color: #ced6e3; }
+.crf-breadcrumb i { color: #8493aa; font-size: 0.65rem; }
+.crf-user {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-align: right;
+  font-size: 0.74rem;
+  min-width: 0;
+}
+.crf-user strong {
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.crf-user small { display: block; color: #c5cfde; font-size: 0.63rem; }
+.crf-avatar { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; background: #53627d; font-size: 0.72rem; }
+.crf-content-shell > .crf-footer { margin-top: auto; }
+.crf-navbar { display: none; }
+.crf-brand, .crf-brand-mark, .crf-brand-text { display: none; }
+
+
+/* ---------- Layout wrapper ---------- */
+.crf-page {
+  flex: 1;
+  padding: 1.75rem 1.6rem 2.5rem;
+}
+.crf-page > .container { max-width: none; padding: 0; }
+
+.crf-page-header {
+  margin-bottom: 1.75rem;
+}
+
+.crf-page-header h1 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--crf-blue-900);
+  margin-bottom: 0.3rem;
+  letter-spacing: -0.01em;
+}
+
+.crf-page-header p {
+  color: var(--crf-gray-600);
+  margin-bottom: 0;
+}
+
+/* ---------- Form sections ---------- */
+.crf-section,
+.crf-detail-section {
+  background-color: var(--crf-white);
+  border: 1px solid #E7E9EC;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.05);
+}
+
+.crf-section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.1rem 1.4rem;
+  border-bottom: 1px solid var(--crf-gray-300);
+  background-color: var(--crf-blue-100);
+}
+
+.crf-section-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  border-radius: 50%;
+  background-color: var(--crf-blue-700);
+  color: var(--crf-white);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.crf-section-header h2 {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--crf-blue-900);
+  margin: 0;
+}
+
+.crf-section-body {
+  padding: 1.4rem;
+}
+
+.crf-hint {
+  font-size: 0.85rem;
+  color: var(--crf-gray-600);
+  margin-bottom: 0.5rem;
+}
+
+.crf-field-label {
+  font-weight: 600;
+  color: var(--crf-gray-900);
+  margin-bottom: 0.35rem;
+}
+
+.crf-readonly-note {
+  font-size: 0.78rem;
+  color: var(--crf-gray-600);
+}
+
+.crf-readonly-note i {
+  margin-right: 0.2rem;
+}
+
+textarea.form-control {
+  min-height: 110px;
+}
+
+.form-control:read-only,
+.form-select:disabled {
+  background-color: var(--crf-gray-100);
+  color: var(--crf-gray-600);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  border-radius: 8px !important;
+}
+.btn-crf-primary {
+  background-color: var(--crf-blue-700);
+  border-color: var(--crf-blue-700);
+  color: var(--crf-white);
+  font-weight: 600;
+}
+
+.btn-crf-primary:hover {
+  background-color: var(--crf-blue-900);
+  border-color: var(--crf-blue-900);
+  color: var(--crf-white);
+}
+
+.btn-crf-outline {
+  background-color: var(--crf-white);
+  border-color: var(--crf-blue-700);
+  color: var(--crf-blue-700);
+  font-weight: 600;
+}
+
+.btn-crf-outline:hover {
+  background-color: var(--crf-blue-100);
+  color: var(--crf-blue-900);
+  border-color: var(--crf-blue-700);
+   transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(37, 99, 235, 0.12);
+}
+
+.btn-crf-outline:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-sm:active, .btn:active {
+  transform: scale(0.98);
+}
+
+/* Baris tombol aksi (Batal/Simpan, dsb): rapi di semua ukuran */
+.crf-page-header .d-flex.gap-2,
+.d-flex.justify-content-end.gap-2 {
+  flex-wrap: wrap;
+}
+
+/* ---------- Badges: Status & Level ---------- */
+.badge-status-draft {
+    background-color: #E0F2FE;
+    color: #0369A1;
+}
+.badge-status-proses  { background-color: #FFF1D6; color: var(--crf-amber); }
+.badge-status-solve   { background-color: #DFF3E4; color: var(--crf-green); }
+.badge-status-cancel  { background-color: #FBE3E1; color: var(--crf-red); }
+
+.badge-level-none   { background-color: var(--crf-gray-300); color: var(--crf-gray-900); }
+.badge-level-kecil  { background-color: #DFF3E4; color: var(--crf-green); }
+.badge-level-sedang { background-color: #FFF1D6; color: var(--crf-amber); }
+.badge-level-tinggi { background-color: #FBE3E1; color: var(--crf-red); }
+
+.crf-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.32rem 0.7rem 0.32rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.crf-badge::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.badge {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 999px !important;
+}
+
+.badge:not(.crf-badge)::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  flex-shrink: 0;
+}
+
+/* ---------- Dashboard table ---------- */
+.crf-table-card {
+  background-color: var(--crf-white);
+  border: 1px solid #E7E9EC;
+  border-radius: 12px;
+  padding: 1.4rem;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.05);
+}
+.crf-stat-grid {
+  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem; margin-bottom: 1.6rem;
+}
+.crf-stat-card {
+  background: var(--crf-white); border: 1px solid #dfe3e8; border-radius: 9px;
+  padding: 1rem 1.15rem; min-height: 80px;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+}
+.crf-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 24, 40, 0.08);
+}
+
+/* Aksen warna per kartu ringkasan, mengikuti urutan tetap di dashboard & pengajuan_saya:
+   Total, Belum Ditindak Lanjuti, Perlu Revisi, Dalam Proses, Selesai, Dibatalkan */
+.crf-stat-grid .crf-stat-card:nth-child(1) { border-left-color: var(--crf-blue-700); }
+.crf-stat-grid .crf-stat-card:nth-child(2) { border-left-color: #94a3b8; }
+.crf-stat-grid .crf-stat-card:nth-child(3) { border-left-color: #7c3aed; }
+.crf-stat-grid .crf-stat-card:nth-child(4) { border-left-color: var(--crf-amber); }
+.crf-stat-grid .crf-stat-card:nth-child(5) { border-left-color: var(--crf-green); }
+.crf-stat-grid .crf-stat-card:nth-child(6) { border-left-color: var(--crf-red); }
+
+.crf-stat-card span { display: block; color: #52627a; font-size: 0.73rem; margin-bottom: 0.45rem; }
+.crf-stat-card strong { color: #172b4d; font-size: 1.4rem; line-height: 1; }
+.crf-table-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem; }
+.crf-table-heading h2 { color: #172b4d; font-size: 1rem; font-weight: 700; margin: 0; }
+
+.crf-table thead th {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--crf-gray-600);
+  border-bottom: 2px solid var(--crf-gray-300);
+  white-space: nowrap;
+}
+
+.crf-table td {
+  vertical-align: middle;
+  font-size: 0.92rem;
+}
+
+.crf-table tbody tr:hover {
+  background-color: #F8FAFC;
+}
+
+.crf-table td.text-center.text-muted,
+.crf-table-card .text-center.text-muted {
+  font-size: 0.95rem;
+  padding: 2.5rem 1rem !important;
+}
+
+/* ---------- Detail view ---------- */
+.crf-detail-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--crf-gray-600);
+  margin-bottom: 0.15rem;
+}
+
+.crf-detail-value {
+  margin-bottom: 1.1rem;
+  white-space: pre-line;
+}
+
+/* =========================================================
+   PERBAIKAN LAYOUT INFORMASI CRF
+   ========================================================= */
+
+.crf-info-grid {
+    row-gap: 28px !important;
+}
+
+.crf-info-item {
+    min-height: 82px;
+}
+
+.crf-info-item .crf-detail-label {
+    margin-bottom: 10px;
+}
+
+.crf-info-item .crf-detail-value {
+    min-height: 26px;
+    line-height: 1.5;
+    color: #172033;
+}
+
+/* Nilai utama */
+.crf-info-main {
+    display: block;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+/* Nilai tambahan seperti divisi */
+.crf-info-sub {
+    display: block;
+    margin-top: 4px;
+    color: #64748b;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Status */
+.crf-info-status {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   SLA
+   ========================================================= */
+
+.crf-sla-grid {
+    row-gap: 28px !important;
+}
+
+.crf-sla-item {
+    min-height: 82px;
+}
+
+.crf-sla-item .crf-detail-label {
+    margin-bottom: 10px;
+}
+
+.crf-sla-value {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    line-height: 1.5;
+    font-weight: 500;
+    color: #172033;
+}
+
+.crf-sla-unit {
+    color: #475569;
+    font-weight: 500;
+}
+
+.crf-sla-empty {
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+/* Supaya nilai SLA tidak terpecah ke bawah */
+.crf-sla-value,
+.crf-sla-value * {
+    white-space: nowrap;
+}
+
+/* Tampilan tanggal */
+.crf-info-date {
+    display: block;
+    line-height: 1.5;
+    white-space: nowrap;
+}
+
+/* ---------- Footer ---------- */
+.crf-footer {
+  padding: 0.9rem 1.6rem;
+  color: var(--crf-gray-600);
+  font-size: 0.82rem;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .crf-sidebar {
+    width: 58px;
+    height: 100vh;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
+  .crf-sidebar-brand { padding: 0; justify-content: center; }
+  .crf-sidebar-brand > span:last-child, .crf-sidebar-section, .crf-sidebar-nav span, .crf-sidebar-footer a { display: none; }
+  .crf-sidebar-nav a { justify-content: center; padding: 0.75rem 0; }
+  .crf-sidebar-footer { padding: 1rem 0; text-align: center; }
+  .crf-breadcrumb span:last-child { display: none; }
+  .crf-page { padding: 1.25rem 0.9rem 2rem; }
+  .crf-stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ---------- Alerts spacing ---------- */
+.crf-alert {
+  margin-bottom: 1.5rem;
+}
+/* Samakan .card bawaan Bootstrap (dipakai di pengajuan_saya.php) dengan crf-section */
+.card {
+  border: 1px solid #E7E9EC;
+  border-radius: 12px;
+  box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.05);
+}
+
+/* =========================================================
+   Dashboard Admin - Perapihan Tabel
+   ========================================================= */
+
+/* Nomor Register */
+.crf-table td:nth-child(2) {
+    white-space: nowrap;
+}
+
+/* Tanggal */
+.crf-table td:nth-child(3) {
+    white-space: nowrap;
+}
+
+/* Level Urgensi */
+.crf-table td:nth-child(8) {
+    min-width: 110px;
+}
+
+.crf-table td:nth-child(8) .crf-badge {
+    white-space: normal;
+    line-height: 1.3;
+    text-align: center;
+}
+
+/* Status */
+.crf-table td:nth-child(9) {
+    min-width: 125px;
+}
+
+.crf-table td:nth-child(9) .crf-badge {
+    white-space: normal;
+    line-height: 1.3;
+    text-align: center;
+}
+
+/* Aksi */
+.crf-table td:nth-child(10) {
+    white-space: nowrap;
+}
+
+.badge-status-belum {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+/* =========================================================
+   TIMELINE PROSES PENGAJUAN
+   ========================================================= */
+
+.crf-timeline {
+    position: relative;
+    margin-top: 8px;
+    padding-left: 34px;
+}
+
+/* Garis vertikal */
+.crf-timeline::before {
+    content: "";
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    left: 8px;
+    width: 2px;
+    background: #d6dce5;
+}
+
+/* Setiap item timeline */
+.crf-timeline-item {
+    position: relative;
+    padding-bottom: 24px;
+    min-height: 48px;
+}
+
+/* Hilangkan padding pada item terakhir */
+.crf-timeline-item:last-child {
+    padding-bottom: 0;
+}
+
+/* Titik timeline */
+.crf-timeline-dot {
+    position: absolute;
+    left: -34px;
+    top: 2px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #0d6efd;
+    border: 3px solid #ffffff;
+    box-shadow: 0 0 0 2px #0d6efd;
+    z-index: 2;
+}
+
+/* Isi timeline */
+.crf-timeline-content {
+    position: relative;
+    padding-left: 0;
+}
+
+/* Baris judul + tanggal */
+.crf-timeline-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+/* Nama aktivitas */
+.crf-timeline-top strong {
+    display: block;
+    color: #172b4d;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* Tanggal */
+.crf-timeline-date {
+    color: #6c757d;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+/* Deskripsi */
+.crf-timeline-description {
+    margin-top: 5px;
+    color: #343a40;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+/* Actor */
+.crf-timeline-actor {
+    margin-top: 4px;
+    color: #6c757d;
+    font-size: 13px;
+}
+
+.badge-status-revisi {
+    background-color: #EDE9FE;
+    color: #6D28D9;
+}
+
+/* ---------- Badges: Workflow Stage ---------- */
+.badge-stage-pemohon { background-color: #E0F2FE; color: #0369A1; }
+.badge-stage-cmo { background-color: #DBEAFE; color: #1D4ED8; }
+.badge-stage-otomasi { background-color: #FEF3C7; color: #92400E; }
+.badge-stage-pir { background-color: #EDE9FE; color: #6D28D9; }
+.badge-stage-joko { background-color: #DCFCE7; color: #166534; }
+.badge-stage-cmo-final { background-color: #FCE7F3; color: #9D174D; }
+.badge-stage-selesai { background-color: #DFF3E4; color: var(--crf-green); }
+
+
+/* =====================================================================
+   RESPONSIVE BREAKPOINTS
+   Mobile-first tambahan. Breakpoint utama: 992px (tablet) & 768px (HP).
+   ===================================================================== */
+
+/* ---------- Tablet (<= 992px): sidebar mulai ramping, grid stat 3 kolom ---------- */
+@media (max-width: 992px) {
+  .crf-stat-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+  .crf-page { padding: 1.5rem 1.25rem 2rem; }
+}
+
+/* ---------- Mobile (<= 768px): sidebar jadi off-canvas ---------- */
+@media (max-width: 768px) {
+
+  /* Sidebar disembunyikan di luar layar, muncul sebagai overlay saat dibuka */
+  .crf-sidebar {
+    width: min(240px, 80vw);
+    transform: translateX(-100%);
+    box-shadow: 2px 0 12px rgba(0,0,0,0.15);
+  }
+
+  .crf-app-shell.crf-sidebar-open .crf-sidebar {
+    transform: translateX(0);
+  }
+
+  .crf-app-shell.crf-sidebar-open .crf-sidebar-overlay {
+    display: block;
+  }
+
+  .crf-sidebar-brand > span:last-child,
+  .crf-sidebar-section,
+  .crf-sidebar-nav span,
+  .crf-sidebar-footer a span {
+    display: inline;
+  }
+
+  /* Konten selalu selebar layar; sidebar melayang di atasnya, bukan mendorong */
+  .crf-content-shell {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .crf-sidebar-toggle {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .crf-topbar {
+    justify-content: flex-start;
+    padding: 0 1rem;
+  }
+
+  .crf-user strong { max-width: 90px; font-size: 0.7rem; }
+  .crf-user small { display: none; }
+
+  .crf-breadcrumb span:last-child { display: none; }
+
+  .crf-page { padding: 1.1rem 0.85rem 1.75rem; }
+
+  .crf-stat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem; }
+  .crf-stat-card { padding: 0.8rem 0.9rem; min-height: 68px; }
+  .crf-stat-card strong { font-size: 1.15rem; }
+
+  .crf-section-body { padding: 1rem; }
+  .crf-section-header { padding: 0.9rem 1rem; }
+
+  /* Tombol aksi jadi full width & bertumpuk di layar sempit */
+  .crf-page-header .d-flex.gap-2 {
+    width: 100%;
+  }
+  .crf-page-header .d-flex.gap-2 > a,
+  .crf-page-header .d-flex.gap-2 > button {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+
+  form .d-flex.justify-content-end.gap-2 {
+    flex-direction: column-reverse;
+  }
+  form .d-flex.justify-content-end.gap-2 > a,
+  form .d-flex.justify-content-end.gap-2 > button {
+    width: 100%;
+  }
+
+  /* ---- Tabel besar (dashboard admin & pengajuan_saya) jadi kartu ---- */
+  .crf-table-responsive-cards table.crf-table,
+  .crf-table-responsive-cards table.crf-table thead,
+  .crf-table-responsive-cards table.crf-table tbody,
+  .crf-table-responsive-cards table.crf-table tr,
+  .crf-table-responsive-cards table.crf-table td,
+  .crf-table-responsive-cards table.crf-table th {
+    display: block;
+    width: 100%;
+  }
+
+  .crf-table-responsive-cards table.crf-table thead {
+    display: none;
+  }
+
+  .crf-table-responsive-cards table.crf-table tr {
+    border: 1px solid var(--crf-gray-300);
+    border-radius: 8px;
+    margin-bottom: 0.85rem;
+    padding: 0.6rem 0.8rem;
+  }
+
+  .crf-table-responsive-cards table.crf-table td,
+  .crf-table-responsive-cards table.crf-table th {
+    border: none;
+    padding: 0.35rem 0;
+    white-space: normal !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    align-items: flex-start;
+    text-align: right;
+    font-weight: normal;
+  }
+
+  .crf-table-responsive-cards table.crf-table td::before,
+  .crf-table-responsive-cards table.crf-table th::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--crf-gray-600);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    text-align: left;
+    flex: 0 0 40%;
+  }
+
+  .crf-table-responsive-cards table.crf-table td:last-child,
+  .crf-table-responsive-cards table.crf-table th:last-child {
+    justify-content: flex-start;
+  }
+  .crf-table-responsive-cards table.crf-table td:last-child::before,
+  .crf-table-responsive-cards table.crf-table th:last-child::before {
+    display: none;
+  }
+  .crf-table-responsive-cards table.crf-table td:last-child .d-flex,
+  .crf-table-responsive-cards table.crf-table th:last-child .d-flex {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .crf-timeline { padding-left: 26px; }
+  .crf-timeline-dot { left: -26px; width: 14px; height: 14px; }
+  .crf-timeline-top strong { font-size: 14px; }
+}
+
+/* ---------- Layar sangat sempit (<= 400px) ---------- */
+@media (max-width: 400px) {
+  .crf-stat-grid { grid-template-columns: 1fr; }
+  .crf-page-header h1 { font-size: 1.15rem; }
+}
