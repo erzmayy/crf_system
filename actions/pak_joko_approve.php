@@ -41,7 +41,7 @@ try {
     ]);
 
     $actor = !empty($user['nama']) ? $user['nama'] : $user['userid'];
-    logCrfActivity($pdo, $id, 'Approval Pak Joko', $note !== '' ? 'Pak Joko menyetujui CRF. Catatan: ' . $note : 'Pak Joko menyetujui hasil penanganan CRF.', $actor);
+    logCrfActivity($pdo, $id, 'Approval Kepala Departemen Operasional', $note !== '' ? 'Kepala Departemen Operasional menyetujui CRF. Catatan: ' . $note : 'Kepala Departemen Operasional menyetujui hasil penanganan CRF.', $actor);
     $pdo->commit();
     $_SESSION['flash'] = ['type'=>'success','message'=>'CRF berhasil di-approve dan diteruskan ke CMO untuk finalisasi.'];
 } catch (Throwable $e) {

@@ -621,7 +621,7 @@ require_once __DIR__ . '/../includes/header.php';
 
                 <div class="alert alert-info">
                     Permintaan sudah selesai ditangani oleh Otomasi.
-                    Silakan lengkapi hasil implementasi dan evaluasi perubahan sebelum diteruskan ke Pak Joko.
+                    Silakan lengkapi hasil implementasi dan evaluasi perubahan sebelum diteruskan ke Kepala Departemen Operasional.
                 </div>
 
 
@@ -697,7 +697,7 @@ require_once __DIR__ . '/../includes/header.php';
                             class="btn btn-crf-primary"
                         >
                             <i class="bi bi-send"></i>
-                            Kirim ke Pak Joko
+                            Kirim ke Kepala Departemen Operasional
                         </button>
 
                     </div>
