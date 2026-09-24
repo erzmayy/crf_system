@@ -74,7 +74,7 @@ try {
     } else {
         $stmt = $pdo->prepare("UPDATE change_requests SET status = 'Solve', workflow_stage = 'SELESAI', solved_at = :now, cancelled_at = NULL WHERE id = :id AND workflow_stage = 'CMO_FINAL'");
         $stmt->execute(['now' => $now, 'id' => $id]);
-        logCrfActivity($pdo, $id, 'Solve', 'CMO menyelesaikan dan menutup CRF setelah approval Pak Joko.', $actor);
+        logCrfActivity($pdo, $id, 'Solve', 'CMO menyelesaikan dan menutup CRF setelah approval Kepala Departemen Operasional.', $actor);
         $message = 'CRF berhasil ditandai selesai.';
     }
 

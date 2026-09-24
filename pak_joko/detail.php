@@ -48,7 +48,7 @@ if (!$crf) {
         <div class="container">
 
             <div class="alert alert-danger">
-                CRF tidak ditemukan pada antrean approval Pak Joko.
+                CRF tidak ditemukan pada antrean approval Kepala Departemen Operasional.
             </div>
 
             <a
@@ -120,7 +120,7 @@ $flash = $_SESSION['flash'] ?? null;
 unset($_SESSION['flash']);
 
 
-$pageTitle = 'Pak Joko - Review CRF';
+$pageTitle = 'Kepala Departemen Operasional - Review CRF';
 
 require_once __DIR__ . '/../includes/header.php';
 
@@ -944,7 +944,7 @@ require_once __DIR__ . '/../includes/header.php';
 
 
         <!-- =====================================================
-             6. APPROVAL PAK JOKO
+             6. APPROVAL Kepala Departemen Operasional
              ===================================================== -->
 
         <div class="crf-section mb-4">
@@ -956,7 +956,7 @@ require_once __DIR__ . '/../includes/header.php';
                 </span>
 
                 <h2>
-                    Approval Pak Joko
+                    Approval Kepala Departemen Operasional
                 </h2>
 
             </div>

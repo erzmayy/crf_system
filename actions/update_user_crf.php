@@ -96,7 +96,7 @@ try {
 
     /*
      * Simpan Implementasi + PIR
-     * lalu teruskan ke Pak Joko
+     * lalu teruskan ke kepala departemen operasional 
      */
     $update = $pdo->prepare("
         UPDATE change_requests
@@ -128,7 +128,7 @@ try {
         $pdo,
         $id,
         'Implementasi & PIR Diisi',
-        'Pemohon telah mengisi Implementasi / Hasil Perubahan dan Post Implementation Review. CRF diteruskan ke Pak Joko untuk approval.',
+        'Pemohon telah mengisi Implementasi / Hasil Perubahan dan Post Implementation Review. CRF diteruskan ke Kepala Departemen Operasional untuk approval.',
         $actor
     );
 
@@ -138,7 +138,7 @@ try {
 
     $_SESSION['flash'] = [
         'type' => 'success',
-        'message' => 'Implementasi dan Post Implementation Review berhasil dikirim. CRF menunggu approval Pak Joko.'
+        'message' => 'Implementasi dan Post Implementation Review berhasil dikirim. CRF menunggu approval Kepala Departemen Operasional.'
     ];
 
 } catch (Throwable $e) {

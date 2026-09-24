@@ -157,7 +157,7 @@ function crfRoleLabel(string $role): string
         case 'otomasi':
             return 'Otomasi';
         case 'pak_joko':
-            return 'Pak Joko';
+            return 'Kepala Departemen Operasional';
         case 'admin':
             return 'Admin';
         default:

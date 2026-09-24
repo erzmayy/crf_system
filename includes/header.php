@@ -61,7 +61,7 @@ $homePath = $isAdminUser
           <i class="bi bi-gear-fill"></i><span>Otomasi</span>
         </a>
         <a class="<?= $isPakJoko ? 'active' : '' ?>" href="<?= h($appBasePath) ?>/pak_joko/index.php">
-          <i class="bi bi-check2-square"></i><span>Pak Joko</span>
+          <i class="bi bi-check2-square"></i><span>Kepala Departemen Operasional</span>
         </a>
         <a class="<?= $isForm ? 'active' : '' ?>" href="<?= h($appBasePath) ?>/user/form_crf.php">
           <i class="bi bi-file-earmark-plus"></i><span>Form CRF</span>

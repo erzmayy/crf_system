@@ -244,7 +244,7 @@ function workflowStageLabel(string $stage): string
         case 'PEMOHON_PIR':
             return 'Pemohon - Isi PIR';
         case 'PAK_JOKO':
-            return 'Pak Joko - Approval';
+            return 'Kepala Departemen Operasional - Approval';
         case 'CMO_FINAL':
             return 'CMO - Finalisasi';
         case 'SELESAI':

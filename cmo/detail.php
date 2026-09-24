@@ -905,7 +905,7 @@ require_once __DIR__ . '/../includes/header.php';
 
                         <i class="bi bi-check2-circle"></i>
 
-                        Disetujui Pak Joko pada
+                        Disetujui Kepala Departemen Operasional pada
 
                         <?= h(
                             date(
@@ -1169,7 +1169,7 @@ require_once __DIR__ . '/../includes/header.php';
 
                     <p class="text-muted">
 
-                        Pak Joko sudah menyetujui hasil penanganan.
+                        Kepala Departemen Operasional sudah menyetujui hasil penanganan.
                         CMO dapat menutup CRF setelah memastikan
                         proses sudah lengkap.
 

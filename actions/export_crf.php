@@ -621,10 +621,10 @@ $html = '
             </td>
 
 
-            <!-- 4. PAK JOKO -->
+            <!-- 4. KEPALA DEPARTEMEN OPERASIONAL -->
             <td>
                 <div class="process-table-title">
-                    Pak Joko
+                    Kepala Departemen Operasional
                 </div>
 
                 <div class="process-table-role">
