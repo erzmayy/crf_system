@@ -544,12 +544,14 @@ $html = '
 
     <table class="process-table">
         <tr>
-            <td width="33%">
-                <div style="font-weight: bold; margin-bottom: 12px;">
+
+            <!-- 1. PEMOHON -->
+            <td>
+                <div class="process-table-title">
                     Yang Mengajukan
                 </div>
 
-                <div style="font-weight: bold;">
+                <div class="process-table-person">
                     ' . pdfValue($crf['full_name']) . '
                 </div>
 
@@ -562,41 +564,71 @@ $html = '
                 </div>
             </td>
 
-            <td width="33%">
-                <div style="font-weight: bold; margin-bottom: 12px;">
-                    Mengetahui
+
+            <!-- 2. CMO -->
+            <td>
+                <div class="process-table-title">
+                    CMO
                 </div>
 
-                <div style="font-weight: bold;">
-                    Team CMO
+                <div class="process-table-role">
+                    Dikirim ke Otomasi
                 </div>
 
                 <div class="process-table-label">
-                    Tanggal Approval
+                    Tanggal Diteruskan
                 </div>
 
                 <div class="process-table-date">
                     ' . (
-                        !empty($crf['approval_at'])
+                        !empty($crf['automation_started_at'])
                             ? formatTanggalIndonesia(
-                                new DateTime($crf['approval_at'])
+                                new DateTime(
+                                    $crf['automation_started_at']
+                                )
                             )
                             : '-'
                     ) . '
                 </div>
             </td>
 
-            <td width="34%">
-                <div style="font-weight: bold; margin-bottom: 12px;">
-                    Departemen Operasional
+
+            <!-- 3. OTOMASI -->
+            <td>
+                <div class="process-table-title">
+                    Otomasi
                 </div>
 
-                <div style="font-weight: bold;">
-                    Joko Sri Purwoko
+                <div class="process-table-role">
+                    Submit / Selesai Ditangani
                 </div>
 
-                <div>
-                    Kepala Departemen
+                <div class="process-table-label">
+                    Tanggal Submit
+                </div>
+
+                <div class="process-table-date">
+                    ' . (
+                        !empty($crf['automation_completed_at'])
+                            ? formatTanggalIndonesia(
+                                new DateTime(
+                                    $crf['automation_completed_at']
+                                )
+                            )
+                            : '-'
+                    ) . '
+                </div>
+            </td>
+
+
+            <!-- 4. PAK JOKO -->
+            <td>
+                <div class="process-table-title">
+                    Pak Joko
+                </div>
+
+                <div class="process-table-role">
+                    Approval
                 </div>
 
                 <div class="process-table-label">
@@ -607,12 +639,43 @@ $html = '
                     ' . (
                         !empty($crf['pak_joko_approved_at'])
                             ? formatTanggalIndonesia(
-                                new DateTime($crf['pak_joko_approved_at'])
+                                new DateTime(
+                                    $crf['pak_joko_approved_at']
+                                )
                             )
                             : '-'
                     ) . '
                 </div>
             </td>
+
+
+            <!-- 5. CMO FINALISASI -->
+            <td>
+                <div class="process-table-title">
+                    CMO
+                </div>
+
+                <div class="process-table-role">
+                    Finalisasi / Selesai
+                </div>
+
+                <div class="process-table-label">
+                    Tanggal Finalisasi
+                </div>
+
+                <div class="process-table-date">
+                    ' . (
+                        !empty($crf['solved_at'])
+                            ? formatTanggalIndonesia(
+                                new DateTime(
+                                    $crf['solved_at']
+                                )
+                            )
+                            : '-'
+                    ) . '
+                </div>
+            </td>
+
         </tr>
     </table>
 
