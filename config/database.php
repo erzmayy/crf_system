@@ -39,6 +39,7 @@ function getConnection(): PDO
 
     try {
         $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
+        $pdo->exec("SET time_zone = '+07:00'"); // <-- tambahan ini
         return $pdo;
     } catch (PDOException $e) {
         // Jangan tampilkan error SQL mentah ke user (lihat butir 31 - Keamanan).
