@@ -4,7 +4,7 @@
  * Post Implementation Review yang diisi Pemohon.
  *
  * Setelah keduanya diisi:
- * PEMOHON_PIR -> PAK_JOKO
+ * PEMOHON_PIR -> CMO_FINAL
  */
 
 require_once __DIR__ . '/../includes/auth.php';
@@ -28,10 +28,11 @@ $implementation = trim($_POST['implementation'] ?? '');
 $pir = trim($_POST['post_implementation_review'] ?? '');
 
 
-/*
- * Validasi input
- */
-if ($id <= 0 || $implementation === '' || $pir === '') {
+if (
+    $id <= 0
+    || $implementation === ''
+    || $pir === ''
+) {
 
     $_SESSION['flash'] = [
         'type' => 'danger',
@@ -43,16 +44,20 @@ if ($id <= 0 || $implementation === '' || $pir === '') {
 }
 
 
-/*
- * Ambil CRF milik user yang sedang login
- */
-$stmt = $pdo->prepare('
-    SELECT id, status, workflow_stage
+/* =========================================================
+ * AMBIL CRF MILIK USER
+ * ========================================================= */
+
+$stmt = $pdo->prepare("
+    SELECT
+        id,
+        status,
+        workflow_stage
     FROM change_requests
     WHERE id = :id
       AND user_id = :user_id
     LIMIT 1
-');
+");
 
 $stmt->execute([
     'id' => $id,
@@ -74,9 +79,10 @@ if (!$crf) {
 }
 
 
-/*
- * Hanya boleh diisi pada tahap PEMOHON_PIR
- */
+/* =========================================================
+ * HANYA BOLEH PADA PEMOHON_PIR
+ * ========================================================= */
+
 if ($crf['workflow_stage'] !== 'PEMOHON_PIR') {
 
     $_SESSION['flash'] = [
@@ -94,16 +100,13 @@ try {
     $pdo->beginTransaction();
 
 
-    /*
-     * Simpan Implementasi + PIR
-     * lalu teruskan ke kepala departemen operasional 
-     */
     $update = $pdo->prepare("
         UPDATE change_requests
         SET
             implementation = :implementation,
             post_implementation_review = :pir,
-            workflow_stage = 'PAK_JOKO'
+            workflow_stage = 'CMO_FINAL',
+            status = 'Dalam Proses'
         WHERE id = :id
           AND user_id = :user_id
           AND workflow_stage = 'PEMOHON_PIR'
@@ -117,18 +120,16 @@ try {
     ]);
 
 
-    /*
-     * Timeline
-     */
     $actor = !empty($user['nama'])
         ? $user['nama']
         : $user['userid'];
+
 
     logCrfActivity(
         $pdo,
         $id,
         'Implementasi & PIR Diisi',
-        'Pemohon telah mengisi Implementasi / Hasil Perubahan dan Post Implementation Review. CRF diteruskan ke Kepala Departemen Operasional untuk approval.',
+        'Pemohon telah mengisi Implementasi / Hasil Perubahan dan Post Implementation Review. CRF diteruskan ke CMO untuk penutupan.',
         $actor
     );
 
@@ -138,7 +139,7 @@ try {
 
     $_SESSION['flash'] = [
         'type' => 'success',
-        'message' => 'Implementasi dan Post Implementation Review berhasil dikirim. CRF menunggu approval Kepala Departemen Operasional.'
+        'message' => 'Implementasi dan Post Implementation Review berhasil dikirim. CRF diteruskan ke CMO untuk penutupan.'
     ];
 
 } catch (Throwable $e) {
@@ -147,7 +148,10 @@ try {
         $pdo->rollBack();
     }
 
-    error_log('update_user_crf error: ' . $e->getMessage());
+    error_log(
+        'update_user_crf error: '
+        . $e->getMessage()
+    );
 
     $_SESSION['flash'] = [
         'type' => 'danger',

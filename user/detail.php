@@ -4,11 +4,10 @@
  * ---------------------------------------------------------------
  * Menampilkan detail CRF milik user yang sedang login.
  *
- * User dapat mengisi Post Implementation Review (PIR) setelah
- * Otomasi menyelesaikan permintaan. Implementasi diisi oleh Otomasi
- * dan ditampilkan read-only kepada user.
+ * Setelah Otomasi menyelesaikan eksekusi, Pemohon mengisi
+ * Implementasi / Hasil Perubahan dan Post Implementation Review.
  *
- * Pengisian PIR hanya dapat dilakukan ketika workflow_stage = PEMOHON_PIR.
+ * Pengisian hanya dapat dilakukan ketika workflow_stage = PEMOHON_PIR.
  * ---------------------------------------------------------------
  */
 
@@ -620,8 +619,8 @@ require_once __DIR__ . '/../includes/header.php';
             <?php if (($crf['workflow_stage'] ?? '') === 'PEMOHON_PIR'): ?>
 
                 <div class="alert alert-info">
-                    Permintaan sudah selesai ditangani oleh Otomasi.
-                    Silakan lengkapi hasil implementasi dan evaluasi perubahan sebelum diteruskan ke Kepala Departemen Operasional.
+                    Eksekusi perubahan sudah selesai dilakukan oleh Otomasi.
+                    Silakan lengkapi Implementasi / Hasil Perubahan dan Post Implementation Review sebelum diteruskan ke CMO untuk penutupan.
                 </div>
 
 
@@ -697,7 +696,7 @@ require_once __DIR__ . '/../includes/header.php';
                             class="btn btn-crf-primary"
                         >
                             <i class="bi bi-send"></i>
-                            Kirim ke Kepala Departemen Operasional
+                            Submit
                         </button>
 
                     </div>

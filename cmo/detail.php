@@ -1169,9 +1169,10 @@ require_once __DIR__ . '/../includes/header.php';
 
                     <p class="text-muted">
 
-                        Kepala Departemen Operasional sudah menyetujui hasil penanganan.
+                        Pemohon sudah mengisi Implementasi / Hasil Perubahan dan
+                        Post Implementation Review setelah eksekusi Otomasi.
                         CMO dapat menutup CRF setelah memastikan
-                        proses sudah lengkap.
+                        seluruh proses sudah lengkap.
 
                     </p>
 
