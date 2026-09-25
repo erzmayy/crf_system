@@ -17,40 +17,25 @@ require_once __DIR__ . '/../includes/header.php';
     <?php if ($flash): ?><div class="alert alert-<?= h($flash['type']) ?> crf-alert"><?= h($flash['message']) ?></div><?php endif; ?>
     <div class="crf-table-card">
       <div class="crf-table-heading"><h2>Antrean Otomasi</h2></div>
-      <div class="table-responsive">
-        <table class="table table-bordered table-hover align-middle">
+      <div class="table-responsive crf-table-responsive-cards">
+        <table class="table crf-table align-middle">
           <thead><tr><th>No</th><th>Nomor Register</th><th>Pengaju</th><th>Level</th><th>SLA</th><th>Mulai</th><th>Aksi</th></tr></thead>
           <tbody>
           <?php if (!$requests): ?>
             <tr><td colspan="7" class="text-center text-muted py-4">Tidak ada CRF yang sedang menunggu Otomasi.</td></tr>
           <?php else: ?>
             <?php foreach ($requests as $i => $row): ?>
-              <tr>
-                <td><?= $i + 1 ?></td>
-                <td><strong><?= h($row['request_number']) ?></strong></td>
-                <td><?= h($row['full_name']) ?></td>
-                <td><span class="crf-badge <?= levelBadgeClass($row['level']) ?>"><?= h($row['level'] ?? 'Belum ditentukan') ?></span></td>
-                <td><?= $row['sla_value'] !== null && $row['sla_unit'] ? h(rtrim(rtrim(number_format((float) $row['sla_value'], 2, '.', ''), '0'), '.')) . ' ' . h($row['sla_unit']) : '-' ?></td>
-                <td><?= !empty($row['automation_started_at']) ? h(date('d-m-Y H:i', strtotime($row['automation_started_at']))) : '-' ?></td>
-                <td>
+             <tr>
+                <td data-label="No"><?= $i + 1 ?></td>
+                <td data-label="Nomor Register"><strong><?= h($row['request_number']) ?></strong></td>
+                <td data-label="Pengaju"><?= h($row['full_name']) ?></td>
+                <td data-label="Level"><span class="crf-badge <?= levelBadgeClass($row['level']) ?>"><?= h($row['level'] ?? 'Belum ditentukan') ?></span></td>
+                <td data-label="SLA"><?= $row['sla_value'] !== null && $row['sla_unit'] ? h(rtrim(rtrim(number_format((float) $row['sla_value'], 2, '.', ''), '0'), '.')) . ' ' . h($row['sla_unit']) : '-' ?></td>
+                <td data-label="Mulai"><?= !empty($row['automation_started_at']) ? h(date('d-m-Y H:i', strtotime($row['automation_started_at']))) : '-' ?></td>
+                <td data-label="Aksi">
                   <div class="d-flex gap-2">
-
-                    <a
-                      href="view_detail.php?id=<?= (int) $row['id'] ?>"
-                      class="btn btn-sm btn-crf-outline"
-                    >
-                      <i class="bi bi-eye"></i>
-                      Detail
-                    </a>
-
-                    <a
-                      href="detail.php?id=<?= (int) $row['id'] ?>"
-                      class="btn btn-sm btn-crf-primary"
-                    >
-                      <i class="bi bi-gear"></i>
-                      Proses
-                    </a>
-
+                    <a href="view_detail.php?id=<?= (int) $row['id'] ?>" class="btn btn-sm btn-crf-outline"><i class="bi bi-eye"></i> Detail</a>
+                    <a href="detail.php?id=<?= (int) $row['id'] ?>" class="btn btn-sm btn-crf-primary"><i class="bi bi-gear"></i> Proses</a>
                   </div>
                 </td>
               </tr>

@@ -65,8 +65,8 @@ require_once __DIR__ . '/../includes/header.php';
         </div>
       </div>
 
-      <div class="table-responsive">
-        <table class="table table-bordered table-hover align-middle">
+        <div class="table-responsive crf-table-responsive-cards">
+        <table class="table crf-table align-middle">
           <thead><tr>
             <th>No</th><th>Nomor Register</th><th>Pengaju</th><th>Tanggal</th><th>Status</th><th>Tahap</th><th>Aksi</th>
           </tr></thead>
@@ -76,13 +76,13 @@ require_once __DIR__ . '/../includes/header.php';
           <?php else: ?>
             <?php foreach ($requests as $i => $row): ?>
               <tr>
-                <td><?= $i + 1 ?></td>
-                <td><strong><?= h($row['request_number']) ?></strong></td>
-                <td><?= h($row['full_name']) ?></td>
-                <td><?= !empty($row['submission_date']) ? h(date('d-m-Y', strtotime($row['submission_date']))) : '-' ?></td>
-                <td><span class="crf-badge <?= statusBadgeClass($row['status']) ?>"><?= h(statusLabel($row['status'])) ?></span></td>
-                <td><span class="crf-badge <?= workflowStageBadgeClass($row['workflow_stage']) ?>"><?= h(workflowStageLabel($row['workflow_stage'])) ?></span></td>
-                <td><a href="detail.php?id=<?= (int) $row['id'] ?>" class="btn btn-sm btn-crf-primary"><i class="bi bi-eye"></i> Detail</a></td>
+                <td data-label="No"><?= $i + 1 ?></td>
+                <td data-label="Nomor Register"><strong><?= h($row['request_number']) ?></strong></td>
+                <td data-label="Pengaju"><?= h($row['full_name']) ?></td>
+                <td data-label="Tanggal"><?= !empty($row['submission_date']) ? h(date('d-m-Y', strtotime($row['submission_date']))) : '-' ?></td>
+                <td data-label="Status"><span class="crf-badge <?= statusBadgeClass($row['status']) ?>"><?= h(statusLabel($row['status'])) ?></span></td>
+                <td data-label="Tahap"><span class="crf-badge <?= workflowStageBadgeClass($row['workflow_stage']) ?>"><?= h(workflowStageLabel($row['workflow_stage'])) ?></span></td>
+                <td data-label="Aksi"><a href="detail.php?id=<?= (int) $row['id'] ?>" class="btn btn-sm btn-crf-primary"><i class="bi bi-eye"></i> Detail</a></td>
               </tr>
             <?php endforeach; ?>
           <?php endif; ?>

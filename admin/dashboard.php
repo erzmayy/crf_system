@@ -514,7 +514,7 @@ require_once __DIR__ . '/../includes/header.php';
             <!-- TABLE -->
             <div class="table-responsive crf-table-responsive-cards">
 
-                <table class="table crf-table  align-middle">
+                <table class="table crf-table dashboard-table align-middle">
 
                     <thead>
 
