@@ -525,7 +525,7 @@ require_once __DIR__ . '/../includes/header.php';
 
                                         <!-- ISI PIR -->
                                         <?php if (($row['workflow_stage'] ?? '') === 'PEMOHON_PIR'): ?>
-                                            <a href="detail.php?id=<?= (int) $row['id'] ?>#post-implementation-review" class="btn btn-sm btn-crf-primary">
+                                            <a href="detail.php?id=<?= (int) $row['id'] ?>#implementation-review" class="btn btn-sm btn-crf-primary">
                                                 <i class="bi bi-clipboard-check"></i> Isi PIR
                                             </a>
                                         <?php endif; ?>
@@ -664,7 +664,7 @@ require_once __DIR__ . '/../includes/header.php';
 
                         </nav>
 
-                    <?php endif; ?> </li>
+                    <?php endif; ?> 
 
                 <?php endif; ?>
 
