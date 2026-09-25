@@ -496,14 +496,56 @@ require_once __DIR__ . '/../includes/header.php';
                         </div>
 
 
-                        <div class="crf-readonly-note">
+                        <div class="crf-readonly-note mb-4">
 
                             <i class="bi bi-info-circle"></i>
 
-                            Otomasi hanya melakukan eksekusi / penanganan perubahan.
-                            Setelah eksekusi selesai, CRF akan diteruskan ke Pemohon
-                            untuk mengisi <strong>Implementasi / Hasil Perubahan</strong>
-                            dan <strong>Post Implementation Review</strong>.
+                            Sebelum menyelesaikan eksekusi, Otomasi wajib mengisi
+                            <strong>Implementasi / Hasil Perubahan</strong> dan
+                            <strong>Post Implementation Review</strong>.
+                            Setelah itu CRF diteruskan ke CMO untuk penutupan.
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label
+                                for="implementation"
+                                class="form-label fw-semibold"
+                            >
+                                Implementasi / Hasil Perubahan
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <textarea
+                                id="implementation"
+                                name="implementation"
+                                class="form-control"
+                                rows="6"
+                                required
+                                placeholder="Tuliskan hasil atau perubahan yang sudah diterapkan..."
+                            ><?= h($crf['implementation'] ?? '') ?></textarea>
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label
+                                for="post_implementation_review"
+                                class="form-label fw-semibold"
+                            >
+                                Post Implementation Review
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <textarea
+                                id="post_implementation_review"
+                                name="post_implementation_review"
+                                class="form-control"
+                                rows="6"
+                                required
+                                placeholder="Tuliskan hasil evaluasi setelah perubahan diterapkan..."
+                            ><?= h($crf['post_implementation_review'] ?? '') ?></textarea>
 
                         </div>
 
@@ -521,7 +563,7 @@ require_once __DIR__ . '/../includes/header.php';
                         class="btn btn-crf-primary"
                     >
                         <i class="bi bi-check2-circle"></i>
-                        Selesai Eksekusi
+                        Selesai Eksekusi 
                     </button>
 
                 </div>

@@ -861,7 +861,7 @@ require_once __DIR__ . '/../includes/header.php';
                     <?php else: ?>
 
                         <span class="text-muted">
-                            Belum diisi oleh Pemohon.
+                            Belum diisi oleh Otomasi.
                         </span>
 
                     <?php endif; ?>
@@ -891,7 +891,7 @@ require_once __DIR__ . '/../includes/header.php';
                     <?php else: ?>
 
                         <span class="text-muted">
-                            Belum diisi oleh Pemohon.
+                            Belum diisi oleh Otomasi.
                         </span>
 
                     <?php endif; ?>
@@ -1169,8 +1169,8 @@ require_once __DIR__ . '/../includes/header.php';
 
                     <p class="text-muted">
 
-                        Pemohon sudah mengisi Implementasi / Hasil Perubahan dan
-                        Post Implementation Review setelah eksekusi Otomasi.
+                        Otomasi sudah menyelesaikan eksekusi serta mengisi
+                        Implementasi / Hasil Perubahan dan Post Implementation Review.
                         CMO dapat menutup CRF setelah memastikan
                         seluruh proses sudah lengkap.
 

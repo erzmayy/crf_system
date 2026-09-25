@@ -20,6 +20,8 @@ $action = $_POST['action'] ?? 'save';
 $level = $_POST['level'] ?? '';
 $slaValue = trim($_POST['sla_value'] ?? '');
 $slaUnit = $_POST['sla_unit'] ?? '';
+$implementation = trim($_POST['implementation'] ?? '');
+$pir = trim($_POST['post_implementation_review'] ?? '');
 
 if (!in_array($level, ['Tinggi', 'Normal', 'Rendah'], true)) {
     $level = '';
@@ -109,6 +111,18 @@ if (!$isExecutionStage) {
         exit;
     }
 
+} elseif ($action === 'complete') {
+
+    if ($implementation === '' || $pir === '') {
+        $_SESSION['flash'] = [
+            'type' => 'danger',
+            'message' => 'Implementasi / Hasil Perubahan dan Post Implementation Review wajib diisi sebelum eksekusi diselesaikan.'
+        ];
+
+        header('Location: ../otomasi/detail.php?id=' . $id);
+        exit;
+    }
+
 }
 
 
@@ -129,19 +143,16 @@ try {
 
     if (!$isExecutionStage) {
 
-        /*
-        * HANYA ketika SLA benar-benar dikirim ke
-        * Kepala Departemen Operasional, waktu mulai dicatat.
-        */
+        $startedAt = $crf['automation_started_at'] ?: $now;
+
+        $dueAt = slaDueAt(
+            $startedAt,
+            $slaValue,
+            $slaUnit
+        );
+
+
         if ($action === 'complete') {
-
-            $startedAt = $now;
-
-            $dueAt = slaDueAt(
-                $startedAt,
-                $slaValue,
-                $slaUnit
-            );
 
             $stmt = $pdo->prepare("
                 UPDATE change_requests
@@ -155,8 +166,8 @@ try {
                     workflow_stage = 'PAK_JOKO',
                     status = 'Dalam Proses'
                 WHERE id = :id
-                AND workflow_stage = 'OTOMASI'
-                AND pak_joko_approved_at IS NULL
+                  AND workflow_stage = 'OTOMASI'
+                  AND pak_joko_approved_at IS NULL
             ");
 
             $stmt->execute([
@@ -169,6 +180,7 @@ try {
                 'id' => $id,
             ]);
 
+
             logCrfActivity(
                 $pdo,
                 $id,
@@ -177,32 +189,35 @@ try {
                 $actor
             );
 
+
             $message = 'Level Urgensi dan SLA berhasil ditentukan. CRF menunggu approval Kepala Departemen Operasional.';
 
         } else {
 
-            /*
-            * Kalau hanya klik Simpan:
-            * Level dan SLA disimpan,
-            * tetapi waktu Mulai BELUM dicatat.
-            */
             $stmt = $pdo->prepare("
                 UPDATE change_requests
                 SET
                     level = :level,
                     sla_value = :sla_value,
-                    sla_unit = :sla_unit
+                    sla_unit = :sla_unit,
+                    sla_started_at = :sla_started_at,
+                    sla_due_at = :sla_due_at,
+                    automation_started_at = :automation_started_at
                 WHERE id = :id
-                AND workflow_stage = 'OTOMASI'
-                AND pak_joko_approved_at IS NULL
+                  AND workflow_stage = 'OTOMASI'
+                  AND pak_joko_approved_at IS NULL
             ");
 
             $stmt->execute([
                 'level' => $level,
                 'sla_value' => (float) $slaValue,
                 'sla_unit' => $slaUnit,
+                'sla_started_at' => $startedAt,
+                'sla_due_at' => $dueAt,
+                'automation_started_at' => $startedAt,
                 'id' => $id,
             ]);
+
 
             logCrfActivity(
                 $pdo,
@@ -211,6 +226,7 @@ try {
                 'Level Urgensi dan SLA diperbarui oleh Otomasi.',
                 $actor
             );
+
 
             $message = 'Data Level Urgensi dan SLA berhasil disimpan.';
         }
@@ -243,8 +259,10 @@ try {
         $stmt = $pdo->prepare("
             UPDATE change_requests
             SET
+                implementation = :implementation,
+                post_implementation_review = :post_implementation_review,
                 automation_completed_at = :automation_completed_at,
-                workflow_stage = 'PEMOHON_PIR',
+                workflow_stage = 'CMO_FINAL',
                 status = 'Dalam Proses'
             WHERE id = :id
               AND workflow_stage = 'OTOMASI'
@@ -252,6 +270,8 @@ try {
         " );
 
         $stmt->execute([
+            'implementation' => $implementation,
+            'post_implementation_review' => $pir,
             'automation_completed_at' => $now,
             'id' => $id,
         ]);
@@ -261,7 +281,7 @@ try {
             $pdo,
             $id,
             'Eksekusi Otomasi Selesai',
-            'Otomasi menyelesaikan eksekusi perubahan. CRF diteruskan ke Pemohon untuk mengisi Implementasi dan Post Implementation Review.',
+            'Otomasi menyelesaikan eksekusi perubahan dan mengisi Implementasi / Hasil Perubahan serta Post Implementation Review. CRF diteruskan ke CMO untuk penutupan.',
             $actor
         );
 
@@ -270,10 +290,10 @@ try {
 
         $_SESSION['flash'] = [
             'type' => 'success',
-            'message' => 'Eksekusi Otomasi selesai. CRF diteruskan ke Pemohon untuk Implementasi dan Post Implementation Review.'
+            'message' => 'Eksekusi Otomasi selesai. Implementasi dan Post Implementation Review berhasil diisi. CRF diteruskan ke CMO untuk penutupan.'
         ];
 
-        header('Location: ../otomasi/index.php');
+        header('Location: ../cmo/index.php');
         exit;
     }
 
