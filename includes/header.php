@@ -26,7 +26,7 @@ $appBasePath = rtrim($appBasePath, '/');
 
 $homePath = $isAdminUser
     ? '/admin/dashboard.php'
-    : '/user/form_crf.php';
+    : '/user/pengajuan_saya.php';
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -67,9 +67,6 @@ $homePath = $isAdminUser
           <i class="bi bi-file-earmark-plus"></i><span>Form CRF</span>
         </a>
       <?php else: ?>
-        <a class="<?= $isDashboard ? 'active' : '' ?>" href="<?= h($appBasePath) ?>/user/dashboard.php">
-          <i class="bi bi-grid-1x2-fill"></i><span>Dashboard</span>
-        </a>
         <a class="<?= $isForm ? 'active' : '' ?>" href="<?= h($appBasePath) ?>/user/form_crf.php">
           <i class="bi bi-file-earmark-plus"></i><span>Form CRF</span>
         </a>
