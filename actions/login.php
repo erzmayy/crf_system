@@ -58,7 +58,7 @@ $role = getCrfRole();
 if ($role === 'admin') {
     header('Location: ../admin/dashboard.php');
 } else {
-    header('Location: ../user/dashboard.php');
+    header('Location: ../user/pengajuan_saya.php');
 }
 
 exit;
