@@ -50,5 +50,5 @@ try {
     $_SESSION['flash'] = ['type'=>'danger','message'=>'Terjadi kesalahan saat approval.'];
 }
 
-header('Location: ../cmo/index.php');
+header('Location: ../pak_joko/index.php');
 exit;
