@@ -213,7 +213,40 @@ require_once __DIR__ . '/../includes/header.php';
 
 <div class="crf-page pt-4">
     <div class="container">
+<!-- <style>
+    /* =========================================================
+       PENGAJUAN SAYA - LEBAR KOLOM TETAP
+       ========================================================= */
+    .pengajuan-table-wrap {
+        overflow-x: auto;
+        width: 100%;
+    }
 
+    .pengajuan-table {
+        width: 100%;
+        min-width: 1360px;
+        table-layout: fixed;
+    }
+
+    .pengajuan-table th:nth-child(1),  .pengajuan-table td:nth-child(1)  { width: 40px; }
+    .pengajuan-table th:nth-child(2),  .pengajuan-table td:nth-child(2)  { width: 150px; }
+    .pengajuan-table th:nth-child(3),  .pengajuan-table td:nth-child(3)  { width: 150px; }
+    .pengajuan-table th:nth-child(4),  .pengajuan-table td:nth-child(4)  { width: 110px; }
+    .pengajuan-table th:nth-child(5),  .pengajuan-table td:nth-child(5)  { width: 90px; }
+    .pengajuan-table th:nth-child(6),  .pengajuan-table td:nth-child(6)  { width: 110px; }
+    .pengajuan-table th:nth-child(7),  .pengajuan-table td:nth-child(7)  { width: 130px; }
+    .pengajuan-table th:nth-child(8),  .pengajuan-table td:nth-child(8)  { width: 220px; overflow-wrap: break-word; }
+    .pengajuan-table th:nth-child(9),  .pengajuan-table td:nth-child(9)  { width: 220px; overflow-wrap: break-word; }
+    .pengajuan-table th:nth-child(10), .pengajuan-table td:nth-child(10) { width: 260px; }
+
+    /* Potong teks jadi 1 baris + "..." untuk kolom yang isinya identitas/nama */
+    .pengajuan-cell-truncate {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+</style> -->
         <?php if ($flash): ?>
         <div
             class="alert alert-<?= h($flash['type']) ?> crf-alert"
@@ -397,10 +430,9 @@ require_once __DIR__ . '/../includes/header.php';
 
                     </form>
 
-                    <div class="table-responsive crf-table-responsive-cards">
+                    <div class="table-responsive crf-table-responsive-cards pengajuan-table-wrap">
 
-                        <table class="table table-bordered table-hover align-middle">
-
+                    <table class="table crf-table pengajuan-table align-middle">
                             <thead>
 
                                 <tr>
@@ -441,8 +473,10 @@ require_once __DIR__ . '/../includes/header.php';
 
 
                                     <!-- NAMA PENGAJU -->
-                                    <td  data-label="Pengaju" style="min-width: 120px; max-width: 140px;">
-                                        <?= h($row['full_name']) ?>
+                                    <td data-label="Pengaju">
+                                        <span class="pengajuan-cell-truncate" title="<?= h($row['full_name']) ?>">
+                                            <?= h($row['full_name']) ?>
+                                        </span>
                                     </td>
 
 
@@ -482,15 +516,13 @@ require_once __DIR__ . '/../includes/header.php';
 
 
                                     <!-- PERUBAHAN -->
-                                    <td data-label="Perubahan" style="min-width: 150px; max-width: 180px;">
-                                        <?= nl2br(
-                                            h($row['change_description'] ?? '-')
-                                        ) ?>
+                                    <td data-label="Perubahan" class="text-truncate" style="min-width: 150px; max-width: 180px;" title="<?= h($row['change_description'] ?? '-') ?>">
+                                        <?= h(mb_strimwidth($row['change_description'] ?? '-', 0, 60, '...')) ?>
                                     </td>
 
 
                                     <!-- TANGGAPAN -->
-                                    <td data-label="Tanggapan" style="min-width: 150px; max-width: 180px;">
+                                    <td data-label="Tanggapan" class="text-truncate" style="min-width: 150px; max-width: 180px;" title="<?= h($row['tanggapan_tindak_lanjut'] ?? '-') ?>">
 
                                         <?php if (!empty($row['tanggapan_tindak_lanjut'])): ?>
 

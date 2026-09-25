@@ -864,6 +864,26 @@ textarea.form-control {
     justify-content: flex-start;
   }
 
+/* ---------- Truncate nama pengaju agar tidak menimpa kolom lain ---------- */
+.crf-name-truncate {
+    display: block;
+    max-width: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Di tampilan kartu (mobile), biarkan nama tampil penuh & boleh wrap */
+@media (max-width: 768px) {
+    .crf-name-truncate {
+        display: inline;
+        max-width: none;
+        overflow: visible;
+        text-overflow: unset;
+        white-space: normal;
+    }
+}
+
   .crf-timeline { padding-left: 26px; }
   .crf-timeline-dot { left: -26px; width: 14px; height: 14px; }
   .crf-timeline-top strong { font-size: 14px; }
@@ -874,3 +894,4 @@ textarea.form-control {
   .crf-stat-grid { grid-template-columns: 1fr; }
   .crf-page-header h1 { font-size: 1.15rem; }
 }
+
