@@ -223,6 +223,13 @@ require_once __DIR__ . '/../includes/header.php';
             <?= h($flash['message']) ?>
         </div>
     <?php endif; ?>
+    <?php if (($pendingPirCount ?? 0) > 0): ?>
+    <div class="alert alert-warning crf-alert" role="status">
+        <i class="bi bi-bell-fill"></i>
+        Ada <strong><?= (int) $pendingPirCount ?></strong> CRF yang menunggu Post Implementation Review.
+        <a class="alert-link" href="pir.php">Lihat dan isi Post Implementation Review</a>.
+    </div>
+    <?php endif; ?>
 
         <!-- HEADER HALAMAN -->
         <div class="pengajuan-page-banner">

@@ -7,7 +7,7 @@
  * Bagian yang sama dengan halaman role lain (informasi pengajuan,
  * detail permintaan, lampiran, biaya & kategori, saran alternatif,
  * SLA, timeline) diambil dari includes/partials/*.
- * Bagian yang khusus CMO (Implementasi & PIR read-only, form
+ * Bagian yang khusus CMO (Implementasi & Post Implementation Review read-only, form
  * review/finalisasi) tetap ditulis di file ini.
  * ---------------------------------------------------------------
  */
@@ -206,7 +206,7 @@ require_once __DIR__ . '/../includes/header.php';
         ?>
 
         <!-- =====================================================
-             3. IMPLEMENTASI & PIR (khusus tampilan CMO, read-only)
+             3. IMPLEMENTASI & POST IMPLEMENTATION REVIEW (khusus tampilan CMO, read-only)
              ===================================================== -->
         <div class="crf-section crf-detail-card mb-4">
 
@@ -227,7 +227,7 @@ require_once __DIR__ . '/../includes/header.php';
                         </div>
                     </div>
                     <div class="crf-info-row">
-                        <span class="crf-info-label">Tanggal PIR</span>
+                        <span class="crf-info-label">Tanggal Post Implementation Review</span>
                         <div class="crf-info-value">
                             <?= !empty($crf['pir_date'])
                                 ? h(date('d-m-Y', strtotime($crf['pir_date'])))
@@ -358,9 +358,8 @@ require_once __DIR__ . '/../includes/header.php';
 
                     <p class="text-muted">
 
-                        Otomasi sudah menyelesaikan eksekusi serta mengisi
-                        Implementasi / Hasil Perubahan dan Post Implementation Review.
-                        CMO dapat menutup CRF setelah memastikan
+                        Otomasi sudah menyelesaikan eksekusi dan Pemohon telah mengisi
+                        Post Implementation Review. CMO dapat menutup CRF setelah memastikan
                         seluruh proses sudah lengkap.
 
                     </p>

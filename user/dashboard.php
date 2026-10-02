@@ -13,6 +13,13 @@ $pageTitle='Dashboard'; require_once __DIR__ . '/../includes/header.php';
 <div class="crf-page crf-dashboard-page"><div class="container">
 <div class="crf-page-header"><h1>Dashboard</h1><p>Ringkasan pengajuan Change Request Anda.</p></div>
 <?php if($flash): ?><div class="alert alert-<?= h($flash['type']) ?> crf-alert"><?= h($flash['message']) ?></div><?php endif; ?>
+<?php if (($pendingPirCount ?? 0) > 0): ?>
+<div class="alert alert-warning crf-alert" role="status">
+<i class="bi bi-bell-fill"></i>
+Anda memiliki <strong><?= (int) $pendingPirCount ?></strong> CRF yang menunggu Post Implementation Review.
+<a class="alert-link" href="pir.php">Lihat dan isi Post Implementation Review</a>.
+</div>
+<?php endif; ?>
 <div class="crf-stat-grid">
 <div class="crf-stat-card pengajuan-stat-total"><span>Total Pengajuan</span><strong><?= (int)($summary['total']??0) ?></strong></div>
 <div class="crf-stat-card pengajuan-stat-draft"><span>Draft</span><strong><?= (int)($summary['draft']??0) ?></strong></div>

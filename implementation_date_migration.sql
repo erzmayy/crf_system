@@ -1,4 +1,4 @@
--- Menambahkan tanggal implementasi, tanggal PIR, tipe pengajuan, dan dampak
+-- Menambahkan tanggal implementasi, tanggal Post Implementation Review, tipe pengajuan, dan dampak
 -- untuk database crf_system yang sudah ada.
 -- Aman dijalankan ulang jika kolom sudah tersedia.
 

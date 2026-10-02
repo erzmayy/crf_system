@@ -2943,6 +2943,114 @@ textarea.form-control {
   width: 24%;
 }
 
+.pir-list {
+  --pir-columns: minmax(185px, 1.35fr) minmax(115px, 1fr) minmax(145px, 1fr) minmax(160px, 1.1fr) minmax(130px, 0.8fr);
+  overflow-x: auto;
+  border: 1px solid #dbe5f2;
+  border-radius: 8px;
+}
+
+.pir-list-header,
+.pir-list-row {
+  display: grid;
+  grid-template-columns: var(--pir-columns);
+  align-items: center;
+  min-width: 735px;
+}
+
+.pir-list-header {
+  min-height: 44px;
+  background: var(--crf-helpdesk-blue);
+  color: var(--crf-helpdesk-blue-text);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.035em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.pir-list-header > span,
+.pir-list-cell {
+  min-width: 0;
+  padding: 0.75rem 0.85rem;
+}
+
+.pir-list-row {
+  min-height: 58px;
+  border-top: 1px solid #e6edf6;
+  color: #34465f;
+  font-size: 0.82rem;
+}
+
+.pir-list-row:nth-child(odd) {
+  background: #f8faff;
+}
+
+.pir-list-cell {
+  overflow-wrap: anywhere;
+}
+
+.pir-list-cell:first-child,
+.pir-list-cell:nth-child(3),
+.pir-list-cell:nth-child(4) {
+  white-space: nowrap;
+}
+
+.pir-list-action {
+  text-align: right;
+}
+
+.pir-list-action .btn {
+  min-height: 36px;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .pir-list {
+    overflow: visible;
+    border: 0;
+  }
+
+  .pir-list-header {
+    display: none;
+  }
+
+  .pir-list-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    min-width: 0;
+    margin-bottom: 0.75rem;
+    padding: 0.45rem 0.75rem;
+    border: 1px solid #dbe5f2;
+    border-radius: 8px;
+    background: #fff !important;
+  }
+
+  .pir-list-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.45rem 0;
+    white-space: normal;
+  }
+
+  .pir-list-cell::before {
+    content: attr(data-label);
+    color: #6b7d95;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.035em;
+    text-transform: uppercase;
+  }
+
+  .pir-list-action {
+    grid-column: 1 / -1;
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+
 .crf-helpdesk-table--automation th:nth-child(1),
 .crf-helpdesk-table--automation td:nth-child(1) {
   width: 4%;

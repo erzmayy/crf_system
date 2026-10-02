@@ -401,10 +401,8 @@ require_once __DIR__ . '/../includes/header.php';
 
                             Sebelum menyelesaikan eksekusi, Otomasi wajib mengisi
                             <strong>Tanggal Implementasi</strong>,
-                            <strong>Implementasi / Hasil Perubahan</strong>, dan
-                            <strong>Tanggal PIR</strong> serta
-                            <strong>Post Implementation Review</strong>.
-                            Setelah itu CRF diteruskan ke CMO untuk penutupan.
+                            dan <strong>Implementasi / Hasil Perubahan</strong>.
+                            Setelah itu CRF diteruskan kepada Pemohon untuk mengisi Post Implementation Review.
 
                         </div>
 
@@ -447,48 +445,6 @@ require_once __DIR__ . '/../includes/header.php';
                                 required
                                 placeholder="Tuliskan hasil atau perubahan yang sudah diterapkan..."
                             ><?= h($crf['implementation'] ?? '') ?></textarea>
-
-                        </div>
-
-                        <div class="mb-4">
-
-                            <label
-                                for="pir_date"
-                                class="form-label fw-semibold"
-                            >
-                                Tanggal PIR
-                                <span class="text-danger">*</span>
-                            </label>
-
-                            <input
-                                type="date"
-                                id="pir_date"
-                                name="pir_date"
-                                class="form-control"
-                                value="<?= h($crf['pir_date'] ?? '') ?>"
-                                required
-                            >
-
-                        </div>
-
-                        <div class="mb-4">
-
-                            <label
-                                for="post_implementation_review"
-                                class="form-label fw-semibold"
-                            >
-                                Post Implementation Review
-                                <span class="text-danger">*</span>
-                            </label>
-
-                            <textarea
-                                id="post_implementation_review"
-                                name="post_implementation_review"
-                                class="form-control"
-                                rows="6"
-                                required
-                                placeholder="Tuliskan hasil evaluasi setelah perubahan diterapkan..."
-                            ><?= h($crf['post_implementation_review'] ?? '') ?></textarea>
 
                         </div>
 
