@@ -14,7 +14,9 @@ $activityLabels = [
     'Lolos Filter CMO' => 'Review Teknis & Komite',
     'Otomasi - SLA Ditentukan' => 'SLA Ditentukan',
     'Approval Kepala Departemen Operasional' => 'Persetujuan Kepala Departemen',
-    'Otomasi Selesai' => 'Mulai Implementasi / Selesai',
+    'Otomasi Selesai' => 'Implementasi Selesai',
+    'Pemohon - PIR Dikirim' => 'Post Implementation Review Dikirim Pemohon',
+    'Pemohon - Post Implementation Review Dikirim' => 'Post Implementation Review Dikirim Pemohon',
     'Solve' => 'CRF Selesai',
     'Cancel' => 'CRF Dibatalkan',
 ];
@@ -36,7 +38,7 @@ if (!in_array($requestStatus, ['Solve', 'Cancel'], true)) {
         case 'OTOMASI':
             $pendingStep = empty($crf['kadep_operasional_approved_at'])
                 ? ['title' => 'Penetapan SLA', 'description' => 'Menunggu Otomasi menentukan level urgensi dan SLA.']
-                : ['title' => 'Mulai Implementasi / Selesai', 'description' => 'Menunggu proses implementasi dan Post Implementation Review dari Otomasi.'];
+                : ['title' => 'Implementasi', 'description' => 'Menunggu Otomasi mencatat hasil implementasi.'];
             break;
         case 'kadep_operasional':
             $pendingStep = ['title' => 'Persetujuan Kepala Departemen', 'description' => 'Menunggu persetujuan Kepala Departemen Operasional.'];

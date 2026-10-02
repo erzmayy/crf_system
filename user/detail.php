@@ -4,8 +4,8 @@
  * ---------------------------------------------------------------
  * Menampilkan detail CRF milik user yang sedang login.
  *
- * Implementasi dan Post Implementation Review diisi oleh Otomasi
- * dan ditampilkan read-only kepada user.
+ * Implementasi diisi oleh Otomasi; Pemohon mengisi Post Implementation Review pada halaman
+ * khusus dan data yang sudah dikirim ditampilkan read-only di sini.
  * ---------------------------------------------------------------
  */
 
@@ -290,7 +290,8 @@ require_once __DIR__ . '/../includes/header.php';
 
                 <?php if (($crf['workflow_stage'] ?? '') === 'PEMOHON_PIR'): ?>
                     <div class="alert alert-info">
-                        Isian Implementasi dan Post Implementation Review akan dilengkapi oleh Otomasi.
+                        Hasil implementasi sudah tersedia. Silakan isi Post Implementation Review
+                        melalui <a href="pir.php">halaman Post Implementation Review</a> untuk meneruskan CRF ke CMO.
                     </div>
                 <?php endif; ?>
 
@@ -304,7 +305,7 @@ require_once __DIR__ . '/../includes/header.php';
                         </div>
                     </div>
                     <div class="crf-info-row">
-                        <span class="crf-info-label">Tanggal PIR</span>
+                        <span class="crf-info-label">Tanggal Post Implementation Review</span>
                         <div class="crf-info-value">
                             <?= !empty($crf['pir_date'])
                                 ? h(date('d-m-Y', strtotime($crf['pir_date'])))

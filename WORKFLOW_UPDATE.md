@@ -2,17 +2,18 @@
 
 Alur workflow:
 
-Pemohon → CMO (Filter) → Otomasi (Level Urgensi + SLA) → Kepala Departemen Operasional (Approval) → Otomasi (Eksekusi, Implementasi & PIR) → CMO (Finalisasi) → Selesai → Pemohon
+Pemohon → CMO (Filter) → Otomasi (Level Urgensi + SLA) → Kepala Departemen Operasional (Approval) → Otomasi (Eksekusi & Implementasi) → Pemohon (Post Implementation Review) → CMO (Finalisasi) → Selesai → Pemohon
 
 ## Tahap workflow
 - PEMOHON
 - CMO_FILTER
 - OTOMASI
 - kadep_operasional
+- PEMOHON_PIR
 - CMO_FINAL
 - SELESAI
 
-`PEMOHON_PIR` tetap ada di enum database untuk kompatibilitas data lama, tetapi bukan lagi tahap aktif.
+`PEMOHON_PIR` adalah tahap aktif bagi Pemohon untuk mengisi Post Implementation Review.
 
 ## Role prototype
 - pemohon
@@ -37,9 +38,9 @@ Untuk database `crf_system` lama yang belum memiliki kolom approval Kepala Depar
 
 Migrasi ini aman dijalankan ulang. Untuk instalasi workflow lama yang belum memiliki kolom workflow/SLA atau tabel role, gunakan `workflow_migration.sql`.
 
-Untuk database yang nilai enum `workflow_stage`-nya masih menggunakan `PAK_JOKO`, jalankan `kadep_workflow_stage_migration.sql` agar nilai tersebut diselaraskan dengan `kadep_operasional`.
+Untuk database yang sudah berjalan, jalankan `kadep_workflow_stage_migration.sql` agar enum `workflow_stage` mencakup `PEMOHON_PIR`. Migrasi ini juga menyelaraskan nilai lama `PAK_JOKO` menjadi `kadep_operasional`.
 
-Untuk database yang sudah berjalan, jalankan `implementation_date_migration.sql` sebelum menggunakan form terbaru. Migrasi ini menyediakan kolom Tanggal Implementasi, Tanggal PIR, Tipe Pengajuan, dan kategori Dampak.
+Untuk database yang sudah berjalan, jalankan `implementation_date_migration.sql` sebelum menggunakan form terbaru. Migrasi ini menyediakan kolom Tanggal Implementasi, Tanggal Post Implementation Review, Tipe Pengajuan, dan kategori Dampak.
 
 Migration menambahkan:
 - `workflow_stage`
@@ -51,6 +52,6 @@ Migration menambahkan:
 
 ## Catatan
 - Level Urgensi ditentukan otomatis dari Dampak saat Pemohon mengajukan CRF. Otomasi menetapkan SLA tanpa mengubah Level Urgensi, lalu mengirim CRF ke Kepala Departemen Operasional untuk approval sebelum eksekusi.
-- Setelah approval, Otomasi mengisi Implementasi / Hasil Perubahan dan Post Implementation Review saat menyelesaikan eksekusi.
-- Pemohon hanya melihat Implementasi dan PIR; kedua isian tersebut tidak dapat diedit oleh Pemohon.
-- Setelah eksekusi selesai, CRF diteruskan ke CMO untuk finalisasi dan penandaan selesai.
+- Setelah approval, Otomasi mengisi Tanggal Implementasi dan Implementasi / Hasil Perubahan, lalu menyelesaikan eksekusi ke tahap `PEMOHON_PIR`.
+- Pemohon mengisi Tanggal dan hasil Post Implementation Review pada halaman Post Implementation Review. Setelah dikirim, hasil review tampil read-only pada detail CRF dan workflow diteruskan ke `CMO_FINAL`.
+- Waktu penyelesaian SLA dicatat saat Otomasi menyelesaikan eksekusi melalui `automation_completed_at`; pengisian Post Implementation Review tidak mengubah waktu tersebut.

@@ -1,5 +1,5 @@
--- Menyelaraskan tahap approval Kepala Departemen Operasional
--- pada database yang masih menggunakan nilai enum PAK_JOKO.
+-- Menyelaraskan enum workflow, termasuk tahap aktif PEMOHON_PIR,
+-- dan mengganti nilai lama PAK_JOKO dengan kadep_operasional.
 
 USE crf_system;
 

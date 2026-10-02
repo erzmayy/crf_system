@@ -19,9 +19,7 @@ $submittedLevel = $_POST['level'] ?? '';
 $slaValue = trim($_POST['sla_value'] ?? '');
 $slaUnit = $_POST['sla_unit'] ?? '';
 $implementation = trim($_POST['implementation'] ?? '');
-$pir = trim($_POST['post_implementation_review'] ?? '');
 $implementationDate = trim($_POST['implementation_date'] ?? '');
-$pirDate = trim($_POST['pir_date'] ?? '');
 
 if ($id <= 0) {
     $_SESSION['flash'] = ['type' => 'danger', 'message' => 'CRF tidak valid.'];
@@ -102,18 +100,8 @@ try {
                 && $implementationDateErrors['error_count'] === 0
             )
         );
-    $parsedPirDate = DateTime::createFromFormat('!Y-m-d', $pirDate);
-    $pirDateErrors = DateTime::getLastErrors();
-    $isValidPirDate = $parsedPirDate !== false
-        && $parsedPirDate->format('Y-m-d') === $pirDate
-        && (
-            $pirDateErrors === false
-            || ($pirDateErrors['warning_count'] === 0 && $pirDateErrors['error_count'] === 0)
-        );
     $hasMissingExecutionDetails = !$isValidImplementationDate
-        || !$isValidPirDate
-        || $implementation === ''
-        || $pir === '';
+        || $implementation === '';
 
     if (
         $action === 'complete'
@@ -123,7 +111,7 @@ try {
         $pdo->rollBack();
         $_SESSION['flash'] = [
             'type' => 'danger',
-            'message' => 'Tanggal implementasi, Implementasi / Hasil Perubahan, Tanggal PIR, dan Post Implementation Review wajib diisi dengan benar sebelum eksekusi diselesaikan.'
+            'message' => 'Tanggal implementasi dan Implementasi / Hasil Perubahan wajib diisi dengan benar sebelum eksekusi diselesaikan.'
         ];
         header('Location: ../otomasi/detail.php?id=' . $id);
         exit;
@@ -203,9 +191,7 @@ try {
                 automation_completed_at = :automation_completed_at,
                 implementation_date = :implementation_date,
                 implementation = :implementation,
-                pir_date = :pir_date,
-                post_implementation_review = :pir,
-                workflow_stage = 'CMO_FINAL',
+                workflow_stage = 'PEMOHON_PIR',
                 status = 'Dalam Proses'
             WHERE id = :id
               AND workflow_stage = 'OTOMASI'
@@ -215,8 +201,6 @@ try {
             'automation_completed_at' => $now,
             'implementation_date' => $parsedImplementationDate->format('Y-m-d'),
             'implementation' => $implementation,
-            'pir_date' => $parsedPirDate->format('Y-m-d'),
-            'pir' => $pir,
             'id' => $id,
         ]);
 
@@ -228,11 +212,11 @@ try {
             $pdo,
             $id,
             'Otomasi Selesai',
-            'Otomasi menyelesaikan eksekusi dan mengisi Tanggal Implementasi, Implementasi / Hasil Perubahan, Tanggal PIR, serta Post Implementation Review. CRF diteruskan ke CMO untuk finalisasi.',
+            'Otomasi menyelesaikan eksekusi dan mencatat Tanggal Implementasi serta Implementasi / Hasil Perubahan. CRF diteruskan kepada Pemohon untuk Post Implementation Review.',
             $actor
         );
-        $message = 'Eksekusi, Tanggal Implementasi, dan Tanggal PIR berhasil disimpan. CRF diteruskan ke CMO untuk finalisasi.';
-        $redirect = '../cmo/index.php';
+        $message = 'Eksekusi dan hasil implementasi berhasil disimpan. CRF menunggu Post Implementation Review dari Pemohon.';
+        $redirect = '../otomasi/index.php';
     }
 
     $pdo->commit();

@@ -17,6 +17,7 @@ $currentPath = basename($_SERVER['PHP_SELF'] ?? '');
 $isDashboard = $currentPath === 'dashboard.php';
 $isForm = $currentPath === 'form_crf.php';
 $isPengajuanSaya = $currentPath === 'pengajuan_saya.php';
+$isPir = in_array($currentPath, ['pir.php', 'pir_detail.php'], true);
 $isCmo = str_contains(str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? ''), '/cmo/');
 $isOtomasi = str_contains(str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? ''), '/otomasi/');
 $isPakJoko = str_contains(str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? ''), '/pak_joko/');
@@ -24,6 +25,17 @@ $isForum = str_contains(str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? ''), '
 $forumUnreadTotal = in_array($crfRole, forumRoles(), true)
     ? forumUnreadTotal(getConnection(), (int) ($currentUser['id'] ?? 0))
     : 0;
+$pendingPirCount = 0;
+if ($crfRole === 'pemohon') {
+    $pendingPirStmt = getConnection()->prepare("
+        SELECT COUNT(*)
+        FROM change_requests
+        WHERE user_id = :user_id
+          AND workflow_stage = 'PEMOHON_PIR'
+    ");
+    $pendingPirStmt->execute(['user_id' => $currentUser['id']]);
+    $pendingPirCount = (int) $pendingPirStmt->fetchColumn();
+}
 
 $scriptPath = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
 $appBasePath = preg_replace('#/(?:admin|user|cmo|otomasi|pak_joko|forum)/[^/]+$#', '', $scriptPath) ?: '';
@@ -93,6 +105,16 @@ $homePath = $isAdminUser
         <a class="<?= $isPengajuanSaya ? 'active' : '' ?>" href="<?= h($appBasePath) ?>/user/pengajuan_saya.php">
           <i class="bi bi-file-earmark-check"></i><span>Pengajuan Saya</span>
         </a>
+        <?php if ($crfRole === 'pemohon'): ?>
+          <a class="<?= $isPir ? 'active' : '' ?>" href="<?= h($appBasePath) ?>/user/pir.php">
+            <i class="bi bi-clipboard-check"></i><span>Post Implementation Review</span>
+            <?php if ($pendingPirCount > 0): ?>
+              <span class="crf-nav-unread" aria-label="<?= $pendingPirCount ?> Post Implementation Review menunggu diisi">
+                <?= $pendingPirCount > 99 ? '99+' : $pendingPirCount ?>
+              </span>
+            <?php endif; ?>
+          </a>
+        <?php endif; ?>
       <?php endif; ?>
       <?php if (in_array($crfRole, forumRoles(), true)): ?>
         <a class="<?= $isForum ? 'active' : '' ?>" href="<?= h($appBasePath) ?>/forum/index.php">

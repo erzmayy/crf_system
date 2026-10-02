@@ -3,7 +3,7 @@
  * admin/detail.php
  * ---------------------------------------------------------------
  * Menampilkan seluruh isi satu pengajuan CRF (lihat brief butir 20).
- * Halaman ini read-only; perubahan Level Urgensi / Status / PIR /
+ * Halaman ini read-only; perubahan Level Urgensi / Status / Post Implementation Review /
  * Implementasi dilakukan di admin/edit.php.
  * ---------------------------------------------------------------
  */
@@ -176,7 +176,7 @@ require_once __DIR__ . '/../includes/header.php';
             </div>
           </div>
           <div class="crf-info-row">
-            <span class="crf-info-label">Tanggal PIR</span>
+            <span class="crf-info-label">Tanggal Post Implementation Review</span>
             <div class="crf-info-value">
               <?= !empty($crf['pir_date'])
                   ? h(date('d-m-Y', strtotime($crf['pir_date'])))
